@@ -1,0 +1,65 @@
+<div id="home">
+  <div class="selected">
+    <div class="input-group col-md-12">
+      <span class="input-group-addon col-md-3" id="basic-addon1">搜索商品</span>
+      <form #goodsType="ngForm" (ngSubmit)="onSearchType(goodsType.value)">
+        <input type="text" class="form-control search col-md-6" placeholder="商品类型"
+               #goodsType="ngModel" ngModel name="goodsType" [value]="searchValue">
+        <button type="submit" tabindex="4" class="btn btn-primary search col-md-3">搜索</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="left">
+    <aside>
+      <menu>
+        <ul class="home">
+          <li *ngFor="let array of arrays; let i=index">
+            <div *ngIf="seller == array">
+              <span class="yellowSlide"></span>
+            </div>
+            <a (click)="onSearchSeller(i)">{{array}}</a>
+          </li>
+        </ul>
+      </menu>
+    </aside>
+  </div>
+
+  <div class="right">
+    <section>
+      <menu>
+      <ul>
+        <li *ngFor="let product of protects">
+          <a [routerLink]="['/goods']">
+
+            <img src="http://placehold.it/100x100" />
+            <article class="goods">
+              <h6>{{product}}</h6>
+              <!--<p class="detailTag">-->
+                <!--<span>精选</span>-->
+                <!--<span></span>-->
+              <!--</p>-->
+              <!--<span class="unit">190g</span>-->
+              <p class="price">
+                <span>￥100.00</span>
+                <!--<s>-->
+                  <!--<span>￥200.00</span>-->
+                <!--</s>-->
+              </p>
+            </article>
+          </a>
+          <!--<section>-->
+            <!--<button class="subShopping">-</button>-->
+            <!--<span id="productId">100</span>-->
+            <!--<button class="addShopping">+</button>-->
+          <!--</section>-->
+        </li>
+      </ul>
+    </menu>
+    </section>
+  </div>
+</div>
+
+
+
+

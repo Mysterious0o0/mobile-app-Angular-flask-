@@ -1,0 +1,29 @@
+#select{
+  font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif;
+  overflow: auto;
+  height: 88%;
+  width: 100%;
+  position: fixed;
+}
+
+.form-control[readonly]{
+  background-color: white;
+}
+
+.left{
+  margin-top: 0.5rem;
+}
+.right{
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom {
+  width: 100%;
+}
+
+.btn {
+  margin-left: 5.5rem;
+}

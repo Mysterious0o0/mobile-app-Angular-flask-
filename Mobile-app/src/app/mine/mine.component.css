@@ -1,0 +1,73 @@
+#mine {
+  /*padding: 0.5rem 0;*/
+  font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif;
+  overflow: auto;
+  height: 92%;
+  width: 100%;
+  position: fixed;}
+
+
+/*左面的的导航*/
+aside {
+  width: 30%;
+  float: left;
+  position: relative;/*定位*/
+  background: #fafafa;
+  overflow: hidden;/*超出隐藏*/
+  height:100%;
+  margin-top: 1rem;
+  /*margin-left: 0.5rem;*/
+}
+aside ul {
+  background: #fafafa; }
+aside ul li {
+  list-style: none; /*去点*/
+  text-align: center;/*文字居中*/
+  border-bottom: 0.04rem solid #e0e0e0;/*下划线*/
+  line-height: 3rem;
+  width: 8rem;
+  position: relative;
+  z-index: +1; }/*在上面显示*/
+aside ul li a {
+  display: block;
+  color: grey;
+  font-size: 1.75rem;
+  z-index: +1; }
+
+.blueSlide {
+  background: #428bca;
+  width: 0.2rem;
+  height: 2.5rem;
+  position: absolute;/*绝对定位*/
+  left: 0;
+  top: 0.3rem;
+  display: block; }
+
+menu, ul{
+  padding-left:0.2rem;
+  padding-top: 0.1rem;
+  list-style: none;
+}
+
+
+/*article**/
+.info {
+  width: 70%;
+  margin-top: 1rem;
+  float: left;
+  font-size: 1.75rem;
+  white-space: nowrap;
+}
+
+.userdata>p{
+  text-align: center;
+  margin: auto;
+}
+
+.hasError{
+  border: solid 1px red;
+}
+
+.btn{
+  margin-left: 30%;
+}

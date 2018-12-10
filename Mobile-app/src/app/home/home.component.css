@@ -1,0 +1,131 @@
+#home {
+  /*padding: 0.5rem 0;*/
+  font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif;
+  overflow: auto;
+  height: 92%;
+  width: 100%;
+  position: fixed;}
+
+input.search{
+  width: 18rem;
+}
+
+button.search {
+  float: right;
+}
+
+/**左面的的导航**/
+aside {
+  width: 8rem;
+  float: left;
+  position: relative;/*定位*/
+  background: #fafafa;
+  overflow: hidden;/*超出隐藏*/
+  height:100%}
+aside ul {
+  background: #fafafa; }
+aside ul li {
+  list-style: none; /*去点*/
+  text-align: center;/*文字居中*/
+  border-bottom: 0.04rem solid #e0e0e0;/*下划线*/
+  line-height: 3rem;
+  width: 8rem;
+  position: relative;
+  z-index: +1; }/*在上面显示*/
+aside ul li a {
+  display: block;
+  color: grey;
+  font-size: 2rem;
+  z-index: +1; }
+.blueSlide {
+  background: #39b3d7;
+  width: 0.2rem;
+  height: 2.5rem;
+  position: absolute;/*绝对定位*/
+  left: 0;
+  top: 0.3rem;
+  display: block; }
+
+menu, ul{
+  padding-left:0.2rem;
+  padding-top: 0.1rem;
+  list-style: none;
+}
+
+
+section menu {
+  height: 100%;
+  position: relative;
+  overflow: auto; }
+section menu ul {
+  position: relative; }
+section menu ul li {
+  background: white;
+  border-bottom: 0.2rem solid #e0e0e0;
+  position: relative; }
+section menu ul li a {
+  display: table-row-group;
+  height: 4.2rem; }
+section menu ul li a img {
+  display: block;
+  width: 8rem;
+  float: left; }
+
+
+
+/**article**/
+.goods {
+  width: 10rem;
+  float: right;
+  font-size: 1.5rem; }
+
+.goods h6 {
+  margin: 0.1rem 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 1.7rem}
+
+/******单位**********/
+.unit {
+  color: grey;
+  position: absolute;
+  top: auto;
+}
+.price {
+  position: absolute;
+  bottom: 0.15rem;
+  font-weight: 200;
+  margin: 0.2rem 0; }
+.price > span {
+  padding: 0 0.35rem 0 0;
+  color: red; }
+.price > s {
+  color: grey; }
+
+
+/**添加到购物车**
+li > section {
+  position: absolute;
+  right: 1rem;
+  padding-bottom: 3rem;
+  bottom: 1.3rem;
+  height: 0.75rem;
+  border-radius: 1rem;}
+section > button {
+  background: white;
+  border: 1px solid orange;
+  border-radius: 1111px;
+  color: red;
+  display: inline-block;
+  text-align: center;
+  line-height: 1rem;
+  font-weight: 900;
+  width: 2rem;
+  height: 2rem;}
+li > section > span {
+  display: inline-block;
+  text-align: center;
+  line-height: 0.4rem; }**/
+

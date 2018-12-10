@@ -1,0 +1,36 @@
+<div id="cart">
+  <div class="table">
+    <table border="1">
+      <tr>
+        <td class="td1">物品名</td>
+        <td class="td1">单价</td>
+        <td class="td2">-</td>
+        <td class="td1">数量</td>
+        <td class="td2">+</td>
+        <td class="td1">单项总价</td>
+      </tr>
+      <tr *ngFor="let project of projects let i = index">
+        <td>{{project.goodsname}}</td>
+        <td>￥{{project.price}}{{project.unit}}</td>
+        <td>
+          <button class="btn" (click)="subGoods(i)">-</button>
+        </td>
+        <td>{{project.count}}</td>
+        <td>
+          <button class="btn" (click)="addGoods(i)">+</button>
+        </td>
+        <td>￥{{project.sumprice}}</td>
+      </tr>
+    </table>
+  </div>
+  <p></p>
+  <div class="price">
+    <span>总价格：{{sumPrice}}</span>
+  </div>
+  <p></p>
+  <hr/>
+  <p></p>
+  <div class="buy">
+    <a [routerLink]="['/order']" class="btn btn-primary btn-lg active btn-info" role="button">去结算</a>
+  </div>
+</div>

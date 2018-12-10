@@ -1,0 +1,21 @@
+#address{
+  font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif;
+  overflow: auto;
+  height: 88%;
+  width: 100%;
+  position: fixed;
+}
+
+.create{
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+}
+
+.form-actions{
+  float: right;
+  margin-right: 1rem;
+}
+
+.hasError{
+  border: solid 1px red;
+}
