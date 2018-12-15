@@ -1,0 +1,9 @@
+{
+  "/home": {
+    "target": "http://localhost:8000"
+  },
+
+  "/mine": {
+    "target": "http://localhost:8000/mine"
+  }
+}

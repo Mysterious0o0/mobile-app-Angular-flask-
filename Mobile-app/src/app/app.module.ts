@@ -9,8 +9,9 @@ import { FooterComponent } from './footer/footer.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MineModule} from "./mine/mine.module";
 import {HomeModule} from "./home/home.module";
-import { GoodsNumPipe } from './pipe/goods-num.pipe';
 import {OrderModule} from "./order/order.module";
+import {HttpClientModule} from "@angular/common/http";
+
 
 @NgModule({
   declarations: [
@@ -18,7 +19,6 @@ import {OrderModule} from "./order/order.module";
     CartComponent,
     IntroductionComponent,
     FooterComponent,
-    GoodsNumPipe,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +27,8 @@ import {OrderModule} from "./order/order.module";
     ReactiveFormsModule,
     MineModule,
     HomeModule,
-    OrderModule
+    OrderModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

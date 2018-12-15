@@ -27,20 +27,24 @@
               </div>
               <div class="input-group">
                 <div class="input-group-addon">用户真实名:</div>
-                <input type="text" class="form-control" formControlName="Name">
+                <input type="text" class="form-control" formControlName="Name" value="{{info.Name}}" [class.hasError]=
+                  "infoFormModel.get('Name').invalid && infoFormModel.get('Name').touched" (focus)="onSetValue()">
               </div>
               <div class="input-group">
                 <div class="input-group-addon">email:</div>
-                <input type="text" class="form-control" formControlName="email">
+                <input type="text" class="form-control" formControlName="email" value="{{info.email}}" [class.hasError]=
+                  "infoFormModel.get('email').invalid && infoFormModel.get('email').touched" (focus)="onSetValue()">
               </div>
               <div class="input-group">
                 <div class="input-group-addon">手机号:</div>
-                <input type="text" class="form-control" formControlName="mobile">
+                <input type="text" class="form-control" formControlName="mobile" value="{{info.mobile}}" [class.hasError]=
+                  "infoFormModel.get('mobile').invalid && infoFormModel.get('mobile').touched" (focus)="onSetValue()">
               </div>
               <div class="input-group">
                 <div class="input-group-addon">积分:</div>
                 <span class="form-control" >{{info.integral}}</span>
               </div>
+              <p></p>
               <div class="form-actions">
                 <button type="submit" tabindex="4" class="btn btn-primary">提交</button>
               </div>
@@ -50,7 +54,7 @@
         </div>
         <div *ngSwitchCase="1">
           <div class="form">
-            <form class="form-inline" [formGroup]="passwordFormModel" (submit)="onSubmit()">
+            <form class="form-inline" [formGroup]="passwordFormModel" (submit)="onChangePW()">
               <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-addon">用户旧密码:</div>
@@ -98,6 +102,9 @@
         </div>
       </div>
     </article>
+    <div class="exit">
+      <button type="submit" tabindex="6" class="btn btn-danger btn-group-lg" (click)="onExit()">Exit</button>
+    </div>
   </div>
 </div>
 

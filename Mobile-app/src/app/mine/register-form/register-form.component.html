@@ -4,6 +4,7 @@
     <div class="wrapper">
       <div class="login">
         <form class="container offset1 loginform" [formGroup]="registerFormModel" (submit)="onSubmit()">
+          <input name="_csrf" type="hidden" id="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
           <div id="owl-login" [class.password]="secret">
             <div class="hand"></div>
             <div class="hand hand-r"></div>
@@ -52,7 +53,7 @@
                   <label for="password" class="control-label fa fa-asterisk"></label>
                   <input id="password" type="password" name="password" placeholder='密码' formControlName="password" class="form-control input-medium"
                          [class.hasError]="registerFormModel.get('passwordGroup').get('password').invalid && registerFormModel.get(['passwordGroup', 'password']).touched"
-                         (click)="toSecret(0)" (blur)="toSecret(1)">
+                         (focus)="toSecret(0)" (blur)="toSecret(1)">
                   <div [hidden]="registerFormModel.get('passwordGroup').get('password').valid || registerFormModel.get(['passwordGroup', 'password']).untouched">
                     <span class="help-block alert-warning" [class.hidden]="!registerFormModel.hasError('required',['passwordGroup', 'password'])">请输入登陆密码</span>
                     <span class="help-block alert-warning" [class.hidden]="!registerFormModel.hasError('minlength',['passwordGroup', 'password']) &&
@@ -65,7 +66,7 @@
                   <label for="confirmp" class="control-label fa fa-envelope"></label>
                   <input id="confirmp" type="password" name="confirmp" placeholder='确认密码' formControlName="confirmp" class="form-control input-medium"
                          [class.hasError]="registerFormModel.getError('equal','newPasswordGroup') && registerFormModel.get(['passwordGroup', 'confirmp']).touched"
-                         (click)="toSecret(0)" (blur)="toSecret(1)">
+                         (focus)="toSecret(0)" (blur)="toSecret(1)">
                 </div>
               </div>
               <div class="alert-warning" [hidden]="!registerFormModel.hasError('equal','passwordGroup') ||

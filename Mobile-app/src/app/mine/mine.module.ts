@@ -5,6 +5,9 @@ import {MineComponent} from "./mine.component";
 import {MineRoutingModule} from "./mine-routing.module";
 import {LoginFormComponent} from "./login-form/login-form.component";
 import {RegisterFormComponent} from "./register-form/register-form.component";
+import {AuthService} from "../services/auth.service";
+import {StatusAuthenticatedService} from "../services/status-authenticated.service";
+import {LoginRedisterService} from "../services/login-redister.service";
 
 
 @NgModule({
@@ -20,6 +23,7 @@ import {RegisterFormComponent} from "./register-form/register-form.component";
     RegisterFormComponent,
     MineComponent
   ],
-  providers: []
+  providers: [AuthService, StatusAuthenticatedService, LoginRedisterService],
+
 })
 export class MineModule {}

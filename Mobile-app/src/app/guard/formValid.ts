@@ -6,8 +6,6 @@ export function mobileValidator(control: FormControl): any {
   const mobieReg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
   // 校验输入的值
   const valid = mobieReg.test(control.value);
-  // console.log('mobile的校验结果是：' + valid);
-  /*返回空代表通过，valid为false的时候，返回对象，key,随便给一个值*/
   return valid ? null : {mobile : true};
 }
 
@@ -16,8 +14,6 @@ export function emailValidator(control: FormControl): any{
   const emailReg = /^([A-Za-z0-9_\-\.\u4e00-\u9fa5])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,8})$/;
   // 校验输入的值
   const valid = emailReg.test(control.value);
-  // console.log('mobile的校验结果是：' + valid);
-  /*返回空代表通过，valid为false的时候，返回对象，key,随便给一个值*/
   return valid ? null : {email : true};
 
 }

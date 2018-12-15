@@ -68,6 +68,13 @@ menu, ul{
   border: solid 1px red;
 }
 
-.btn{
+.form-actions .btn{
   margin-left: 30%;
+}
+
+.exit .btn{
+  margin-top: 1rem;
+  margin-right: 1rem;
+  float: right;
+
 }

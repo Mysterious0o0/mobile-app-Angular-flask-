@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -18,11 +19,33 @@ export class HomeComponent implements OnInit {
   protects: string[];
   seller: string;
   searchValue:string = '';
-  constructor() { }
+
+  //----------------------------------------------------
+  // 将angular的服务依赖注入进来
+  constructor(private http:HttpClient) {
+   }
+  //----------------------------------------------------
 
   ngOnInit() {
     this.protects = this.protectAll[this.arrays[0]];
     this.seller = this.arrays[0];
+
+   // 获取服务器数据
+  //   this.http.get<UserResponse>('/home').subscribe(data => {
+  //     // console.log(data);
+  //     console.log("User id: " + data.id);
+  //     console.log("name: " + data.menuname);
+  //     console.log("time: " + data.createtime);
+  //   },
+  //   (err: HttpErrorResponse) => {
+  //     if (err.error instanceof Error) {
+  //       console.log("Client-side error occured.");
+  //     } else {
+  //       console.log("Server-side error occured.");
+  //     }
+  //   }
+  // );
+
   }
 
   onSearchSeller(index: number){
@@ -38,4 +61,12 @@ export class HomeComponent implements OnInit {
   }
 
 
+
 }
+
+// 定义接收的数据类型
+// interface UserResponse {
+//   id: string;
+//   menuname: string;
+//   createtime: string;
+// }

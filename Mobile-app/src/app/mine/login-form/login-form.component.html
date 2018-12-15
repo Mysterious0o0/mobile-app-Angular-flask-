@@ -31,7 +31,7 @@
                 <label for="password" class="control-label fa fa-asterisk"></label>
                 <input id="password" type="password" name="password" placeholder='Password' formControlName="password"
                        class="form-control input-medium" [class.hasError]="loginFormModel.get('password').invalid &&
-                     loginFormModel.get('password').touched" (click)="toSecret(0)" (blur)="toSecret(1)">
+                     loginFormModel.get('password').touched" (focus)="toSecret(0)" (blur)="toSecret(1)">
                 <div [hidden]="loginFormModel.get('password').valid || loginFormModel.get('password').untouched">
                   <span class="help-block alert-warning" [class.hidden]="!loginFormModel.hasError('required','password')">请输入登陆密码</span>
                   <span class="help-block alert-warning" [class.hidden]="!loginFormModel.hasError('minlength','password') &&

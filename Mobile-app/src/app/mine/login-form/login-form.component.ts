@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
+import {log} from "util";
 
 @Component({
   selector: 'app-login-form',
@@ -11,7 +14,7 @@ export class LoginFormComponent implements OnInit {
   secret: boolean = false;
   loginFormModel: FormGroup;
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: FormBuilder, private router: Router, private auth: AuthService) {
     this.loginFormModel = fb.group({
       username:['', [Validators.required, Validators.maxLength(32)]],
       password:['', [Validators.required, Validators.minLength(6), Validators.maxLength(18)]]
@@ -19,6 +22,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   toSecret(flag:number) {
@@ -26,14 +30,27 @@ export class LoginFormComponent implements OnInit {
   }
 
   onSubmit(){
-    let nameValid: boolean = this.loginFormModel.get('username').valid;
-    // console.log("username 校验结果为：" + nameValid);
-    let passValid: boolean = this.loginFormModel.get('password').valid;
-    // console.log("username 校验结果为：" + passValid);
-    if(nameValid && passValid) {
-      console.log('登陆成功'); // 与后台关联，加入账号密码校验
-      console.log('账号：' + this.loginFormModel.get('username').value);
-      console.log('密码：' + this.loginFormModel.get('password').value)
+    if(this.loginFormModel.valid) {
+      let loginData: object = {
+        'username': this.loginFormModel.get('username').value,
+        'password': this.loginFormModel.get('password').value
+      };
+      console.log(loginData);
+      this.auth.login(this.loginFormModel.value).then((response) => {
+        this.loginStatus(response);
+      }).catch((err) => {
+        console.log(err)
+      });
+    }
+  }
+
+  loginStatus(response: object) {
+    if(response['status'] == 200) {
+      localStorage.setItem('userToken', response['userToken']);
+      this.router.navigate(['/mine'])
+    }else {
+      console.log(response['error']);
+      alert("登陆失败 " + response['error'])
     }
   }
 }
