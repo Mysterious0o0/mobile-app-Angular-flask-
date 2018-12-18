@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {and} from "@angular/router/src/utils/collection";
 
 @Injectable({
   providedIn: 'root'

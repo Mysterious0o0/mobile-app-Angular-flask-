@@ -11,9 +11,10 @@ export class StatusAuthenticatedService implements CanActivate{
   constructor(private  auth: AuthService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (localStorage.getItem('token')){
+    if (localStorage.getItem('userToken')){
       return true
     }else {
+      alert("您尚未登录，无法查看，请先登录或注册");
       this.router.navigate(['/login']);
       return false
     }

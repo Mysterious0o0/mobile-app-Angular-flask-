@@ -12,7 +12,7 @@ create database selldb charset=utf8;
 		userid varchar(64) primary key not null,
 		username varchar(64),
 		realname varchar(64),
-		phone varchar(32),
+		mobile varchar(32),
 		password_hash varchar(128),
 		level varchar(2),
 		score varchar(10),
@@ -56,11 +56,12 @@ create database selldb charset=utf8;
 		selpoint varchar(128),
 		delflag varchar(2),
 		createtime datetime,
-		updatetimetime datetime);
+		updatetime datetime);
 
 	create table itemcar(
 		sorderid varchar(64) primary key not null,
 		userid varchar(64),
+		goodsid varchar(64)，
 		goodsname varchar(64),
 		count int,
 		price decimal(10, 2),

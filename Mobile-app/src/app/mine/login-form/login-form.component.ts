@@ -31,11 +31,11 @@ export class LoginFormComponent implements OnInit {
 
   onSubmit(){
     if(this.loginFormModel.valid) {
-      let loginData: object = {
-        'username': this.loginFormModel.get('username').value,
-        'password': this.loginFormModel.get('password').value
-      };
-      console.log(loginData);
+      // let loginData: object = {
+      //   'username': this.loginFormModel.get('username').value,
+      //   'password': this.loginFormModel.get('password').value
+      // };
+      // console.log(loginData);
       this.auth.login(this.loginFormModel.value).then((response) => {
         this.loginStatus(response);
       }).catch((err) => {
@@ -49,7 +49,7 @@ export class LoginFormComponent implements OnInit {
       localStorage.setItem('userToken', response['userToken']);
       this.router.navigate(['/mine'])
     }else {
-      console.log(response['error']);
+      // console.log(response['error']);
       alert("登陆失败 " + response['error'])
     }
   }

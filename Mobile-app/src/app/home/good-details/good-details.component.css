@@ -27,6 +27,7 @@ hr{
 
 .btn {
   float: right;
+  margin-right: 1rem;
 }
 
 .feature {

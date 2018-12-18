@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HomeRoutingModule} from "./home-routing.module";
 import {HomeComponent} from "./home.component";
 import {GoodDetailsComponent} from "./good-details/good-details.component";
+import {HomeService} from "../services/home.service";
 
 
 @NgModule({
@@ -17,6 +18,6 @@ import {GoodDetailsComponent} from "./good-details/good-details.component";
     HomeComponent,
     GoodDetailsComponent
   ],
-  providers: []
+  providers: [HomeService]
 })
 export class HomeModule {}

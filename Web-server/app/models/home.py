@@ -6,6 +6,7 @@ from datetime import datetime
 
 
 class Menu(db.Model):
+    __tablename__ = 'menu'
     menuid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
     menuname = db.Column(db.String(64), nullable=False)
     url = db.Column(db.String(128), nullable=False)
@@ -19,6 +20,7 @@ class Menu(db.Model):
 
 
 class Seller(db.Model):
+    __tablename__ = 'seller'
     sellerid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
     sellername = db.Column(db.String(64), nullable=False)
     relatetionperson = db.Column(db.String(32), nullable=False)
@@ -37,6 +39,7 @@ class Seller(db.Model):
 
 
 class Goods(db.Model):
+    __tablename__ = 'goods'
     goodsid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
     menuid = db.Column(db.String(64), nullable=False)
     sellerid = db.Column(db.String(64), nullable=False)
@@ -62,4 +65,6 @@ def to_json(self):
     data = self.__dict__
     if "_sa_instance_state" in data:
         del data["_sa_instance_state"]
+    if 'price' in data:
+        data['price'] = float(data['price'])
     return data

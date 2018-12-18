@@ -103,29 +103,3 @@ section menu ul li a img {
   color: red; }
 .price > s {
   color: grey; }
-
-
-/**添加到购物车**
-li > section {
-  position: absolute;
-  right: 1rem;
-  padding-bottom: 3rem;
-  bottom: 1.3rem;
-  height: 0.75rem;
-  border-radius: 1rem;}
-section > button {
-  background: white;
-  border: 1px solid orange;
-  border-radius: 1111px;
-  color: red;
-  display: inline-block;
-  text-align: center;
-  line-height: 1rem;
-  font-weight: 900;
-  width: 2rem;
-  height: 2rem;}
-li > section > span {
-  display: inline-block;
-  text-align: center;
-  line-height: 0.4rem; }**/
-

@@ -66,9 +66,10 @@ export class MineComponent implements OnInit{
             alert(response['success'] + "更改成功  " + response['error']);
           }else {
             alert("用户信息更改失败：" + response['error']);
+            this.ngOnInit(0);
+            this.onSetValue();
           }
-          this.ngOnInit(0);
-          this.onSetValue();
+
         }).catch(err => {
           this.ngOnInit(0);
           this.onSetValue();

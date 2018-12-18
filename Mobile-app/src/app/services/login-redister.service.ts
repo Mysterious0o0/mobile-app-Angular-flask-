@@ -12,7 +12,7 @@ export class LoginRedisterService implements CanActivate{
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    if(localStorage.getItem('token')){
+    if(localStorage.getItem('userToken')){
       this.router.navigate(['/mine']);
       return false
     }else {

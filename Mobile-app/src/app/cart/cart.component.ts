@@ -1,49 +1,52 @@
-import {Component, DoCheck, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CartService} from "../services/cart.service";
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit, DoCheck{
+export class CartComponent implements OnInit{
 
-  constructor() { }
-
-  carts:object[] = [
-    {'goodsname': "goods1", 'count': 1, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'goodsname': "goods2", 'count': 1, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'goodsname': "goods3", 'count': 2, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'goodsname': "goods4", 'count': 3, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'goodsname': "goods5", 'count': 2, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'goodsname': "goods6", 'count': 4, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'goodsname': "goods7", 'count': 1, 'price': 100, 'unit': '/件', 'sumprice': 0},
-
-  ];
-  projects: object[];
+  cart = {};
+  products=[];
   sumPrice: number = 0;
 
-  ngOnInit() {
 
+  constructor(private cartService: CartService) {
+    this.cartService.gCartdata().then(response=> {
+      this.getInfo(response);
+    }).catch(err => {
+      alert("服务器请求失败，请重试")
+    });
   }
 
-  subGoods(index: number){
-    this.carts[index]['count'] -= 1;
+  ngOnInit() { }
 
+  subGoods(index: number){
+    this.cartService.handleGoods(this.products[index].goodsid, 'sub').then(response=>{
+      this.getInfo(response);
+    }).catch(err =>{
+      alert('服务器异常，增加失败，请重试')
+    })
   }
 
   addGoods(index: number){
-    this.carts[index]['count'] += 1;
+    this.cartService.handleGoods(this.products[index].goodsid, 'add').then(response=>{
+      if(response['status']!=200){
+        alert(response['error'])
+      }
+      this.getInfo(response['Goods']);
+    }).catch(err =>{
+      alert('服务器异常，增加失败，请重试')
+    })
   }
 
-  ngDoCheck(): void {
+  getInfo(response:any){
     this.sumPrice = 0;
-    for(let i in this.carts){
-      this.carts[i]['sumprice'] = this.carts[i]['count'] * this.carts[i]['price'];
-      this.sumPrice += this.carts[i]['count'] * this.carts[i]['price']
+    this.products = response;
+    for(let pro of response){
+      this.sumPrice += pro.sumunit;
     }
-    this.projects = this.carts.filter(item =>{
-      let filterValues = item['count'];
-      return filterValues > 0
-    });
   }
 }

@@ -26,7 +26,7 @@ class Config:
 
 # 开发环境配置
 class DevelopmentConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:122121@127.0.0.1:3306/sellerdb'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:122121@127.0.0.1:3306/selldb'
 
 
 # 测试环境配置

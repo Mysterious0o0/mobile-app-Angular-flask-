@@ -7,14 +7,11 @@ import {StatusAuthenticatedService} from "../services/status-authenticated.servi
 import {LoginRedisterService} from "../services/login-redister.service";
 
 const routes: Routes = [
-  {path: 'mine', component: MineComponent,
-    // canActivate: [StatusAuthenticatedService]
+  {path: 'mine', component: MineComponent, canActivate: [StatusAuthenticatedService]
   },
-  {path: 'login', component: LoginFormComponent,
-    // canActivate:[LoginRedisterService]
+  {path: 'login', component: LoginFormComponent, canActivate:[LoginRedisterService]
   }, //http://localhost:4200/login
-  {path: 'register', component: RegisterFormComponent,
-    // canActivate: [LoginRedisterService]
+  {path: 'register', component: RegisterFormComponent, canActivate: [LoginRedisterService]
   },
 
 

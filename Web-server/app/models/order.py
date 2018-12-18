@@ -6,6 +6,7 @@ from datetime import datetime
 
 
 class Userorder(db.Model):
+    __tablename__ = 'userorder'
     orderid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
     adderssid = db.Column(db.String(64), nullable=False)
     userid = db.Column(db.String(64), nullable=False)
@@ -18,6 +19,7 @@ class Userorder(db.Model):
 
 
 class Sorder(db.Model):
+    __tablename__ = 'sorder'
     sorderid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
     orderid = db.Column(db.String(64), nullable=False)
     adderssid = db.Column(db.String(64), nullable=False)
@@ -37,6 +39,7 @@ class Sorder(db.Model):
 
 
 class Exorder(db.Model):
+    __tablename__ = 'exorder'
     sorderid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
     orderid = db.Column(db.String(64), nullable=False)
     sellerid = db.Column(db.String(64), nullable=False)
@@ -52,6 +55,7 @@ class Exorder(db.Model):
 
 
 class Hisorder(db.Model):
+    __tablename__ = 'hisorder'
     orderid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
     adderssid = db.Column(db.String(64), nullable=False)
     userid = db.Column(db.String(64), nullable=False)
@@ -64,6 +68,7 @@ class Hisorder(db.Model):
 
 
 class Hissorder(db.Model):
+    __tablename__ = 'hissorder'
     sorderid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
     orderid = db.Column(db.String(64), nullable=False)
     adderssid = db.Column(db.String(64), nullable=False)

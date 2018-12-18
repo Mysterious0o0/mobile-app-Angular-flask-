@@ -1,13 +1,13 @@
 from uuid import uuid1
-from app.extensions import db, login_manager
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from app.extensions import db
 from datetime import datetime
 
 
 class ItemCar(db.Model):
+    __tablename__ = 'itemcar'
     sorderid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
     userid = db.Column(db.String(64), nullable=False)
+    goodsid = db.Column(db.String(64), nullable=False)
     goodsname = db.Column(db.String(64), nullable=False)
     count = db.Column(db.Integer(), nullable=False)
     price = db.Column(db.DECIMAL(10, 2), nullable=False)
@@ -20,6 +20,10 @@ class ItemCar(db.Model):
         data = self.__dict__
         if "_sa_instance_state" in data:
             del data["_sa_instance_state"]
+        if 'price' in data:
+            data['price'] = float(data['price'])
+        if 'sumunit' in data:
+            data['sumunit'] = float(data['sumunit'])
         return data
 
 
