@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {OrderService} from "../services/order.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-order',
@@ -7,41 +9,38 @@ import {Component, OnInit} from '@angular/core';
 })
 export class OrderComponent implements OnInit{
 
-  carts:object[] = [
-    {'goodsname': "goods1", 'count': 1, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'goodsname': "goods2", 'count': 1, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'goodsname': "goods3", 'count': 2, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'goodsname': "goods4", 'count': 3, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'goodsname': "goods5", 'count': 2, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'goodsname': "goods6", 'count': 4, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'goodsname': "goods7", 'count': 1, 'price': 100, 'unit': '/件', 'sumprice': 0},
+  address={};
+  carts=[];
+  addressid: string;
+  sumPrice: number;
 
-  ];
-  projects: object[];
-  sumPrice: number = 0;
+  constructor(private orderService: OrderService, private router: Router, private routerInfo: ActivatedRoute) {
+    this.addressid = this.routerInfo.snapshot.params['index'];
+    orderService.gOrderdata(this.addressid).then(response =>{
+      if (response['status'] == 200) {
+        this.address = response['address'];
+        this.carts = response['cartInfo'];
+        this.sumPrice = 0;
+        for (let cart of this.carts){
+          this.sumPrice += cart.sumunit;
+        }
+      }
+    }).catch(err=>{
+      alert("服务器响应失败，请重新进入订单页")
+    })
+  }
 
-  Info: object[] = [
-    {'username': '蒸', 'mobile': 13287275832, 'address': ''},
-    {'username': '蒸', 'mobile': null , 'address': '你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜'},
-    {'username': '', 'mobile': 13287275832, 'address': '你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜'},
-    {'username': '蒸', 'mobile': 13287275832, 'address': '你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜'},
+  ngOnInit() {}
 
-  ];
-
-  userInfo: object;
-
-  constructor() { }
-
-  ngOnInit() {
-    this.sumPrice = 0;
-    for(let i in this.carts){
-      this.carts[i]['sumprice'] = this.carts[i]['count'] * this.carts[i]['price'];
-      this.sumPrice += this.carts[i]['count'] * this.carts[i]['price']
-    }
-    this.projects = this.carts.filter(item =>{
-      let filterValues = item['count'];
-      return filterValues > 0
-    });
-    this.userInfo = this.Info[3]
+  buyCart(){
+    this.orderService.buyCart(this.addressid).then(response=>{
+      if(response['status']==200){
+        this.router.navigate(['/sucorder'])
+      }else {
+        alert(response['error'])
+      }
+    }).catch(err=>{
+      alert("服务器响应失败，请重新提交订单")
+    })
   }
 }

@@ -1,4 +1,5 @@
 import logging
+from uuid import uuid1
 from flask import Blueprint, request, jsonify
 from app.extensions import db
 from app.form import RegisterForm, LoginForm, InfoForm, PasswordForm
@@ -38,10 +39,12 @@ def register():
     form = RegisterForm()
     status = {'status': 403}
     if form.validate_on_submit():
-        u = User(username=form.username.data,
-                 email=form.email.data,
-                 mobile=form.mobile.data,
-                 password=form.password.data)
+        u = User(
+            userid=str(uuid1()),
+            username=form.username.data,
+            email=form.email.data,
+            mobile=form.mobile.data,
+            password=form.password.data)
         db.session.add(u)
         status['status'] = 200
         return jsonify(status)

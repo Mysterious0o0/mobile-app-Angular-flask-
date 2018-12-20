@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {OrderService} from "../../services/order.service";
 
 @Component({
   selector: 'app-success-order',
@@ -7,39 +8,57 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuccessOrderComponent implements OnInit {
 
-  constructor() { }
+  projects=[];
+  len:number;
 
-  orders:object[] = [
-    {'id': 1, 'goodsname': "goods1", 'count': 1, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'id': 2, 'goodsname': "goods2", 'count': 1, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'id': 3, 'goodsname': "goods3", 'count': 2, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'id': 4, 'goodsname': "goods4", 'count': 3, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'id': 5, 'goodsname': "goods5", 'count': 2, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'id': 6, 'goodsname': "goods6", 'count': 4, 'price': 100, 'unit': '/件', 'sumprice': 0},
-    {'id': 7, 'goodsname': "goods7", 'count': 1, 'price': 100, 'unit': '/件', 'sumprice': 0},
-
-  ];
-  projects: object[];
-  sumPrice: number = 0;
-
-  ngOnInit() {
-    this.sumPrice = 0;
-    for(let i in this.orders){
-      this.orders[i]['sumprice'] = this.orders[i]['count'] * this.orders[i]['price'];
-      this.sumPrice += this.orders[i]['count'] * this.orders[i]['price']
-    }
-    this.projects = this.orders
+  constructor(private orderService: OrderService) {
+    this.orderService.getSorderData().then(response=>{
+      if(response['status']==200){
+        this.projects = response['sorder'];
+        this.len = Object.keys(response['sorder']).length
+      }else {
+        alert(response['error'])
+      }
+    }).catch(err=>{
+      alert('服务器查询异常， 请刷新重试')
+    })
   }
+
+
+  ngOnInit() {}
 
   goodsRejected(index:number){
-    console.log(this.orders[index]['goodsname'] + '被退货')
-  }
-
-  exchangeGoods(index:number){
-    console.log(this.orders[index]['goodsname'] + '要求换货')
+    this.setStatus(this.projects[index].sorderid, 0)
   }
 
   signForGoods(index:number){
-    console.log(this.orders[index]['goodsname'] + '已签收')
+    this.setStatus(this.projects[index].sorderid, 1)
+  }
+
+  setStatus(sorderid:any, flage:number){
+    this.orderService.setGoodsStatus(sorderid, flage).then(response=>{
+      if(response['status']==200 && flage==1){
+        alert('货物已签收完成，欢迎下次光临')
+      }else if(response['status']==200 && flage==0){
+        alert('已申请退货，正在等待商家确认')
+      }else if(response['status']!=200){
+        alert(response['error'])
+      }
+    }).catch(err=>{
+      alert('服务器异常， 请点击重试')
+    })
+  }
+
+  selectMore(){
+    this.orderService.getHisorderData().then(response=>{
+      if(response['status']==200){
+        this.projects = response['sorder'];
+        this.len = Object.keys(response['sorder']).length
+      }else {
+        alert(response['error'])
+      }
+    }).catch(err=>{
+      alert('服务器查询异常， 请刷新重试')
+    })
   }
 }

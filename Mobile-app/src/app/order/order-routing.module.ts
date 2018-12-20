@@ -6,7 +6,7 @@ import {CreateAddressComponent} from "./create-address/create-address.component"
 import {SelectAddressComponent} from "./select-address/select-address.component";
 
 const routes: Routes = [
-  {path: 'order', component: OrderComponent},
+  {path: 'order/:index', component: OrderComponent},
   {path: 'sucorder', component: SuccessOrderComponent}, //http://localhost:4200/sucorder
   {path: 'createadd', component: CreateAddressComponent}, //http://localhost:4200/createadd
   {path: 'selectadd', component: SelectAddressComponent}, //http://localhost:4200/selectadd

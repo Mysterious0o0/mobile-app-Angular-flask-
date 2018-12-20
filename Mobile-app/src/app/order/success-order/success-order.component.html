@@ -12,18 +12,21 @@
     <div  *ngFor="let project of projects let i = index">
       <table class="table-striped">
         <tr>
-          <td class="td1">{{project.id}}</td>
+          <td class="td1">{{i+1}}</td>
           <td class="td1">{{project.goodsname}}</td>
           <td class="td1">{{project.count}}</td>
-          <td class="td1">{{project.sumprice}}</td>
+          <td class="td1">{{project.sumunit}}</td>
         </tr>
       </table>
-      <hr>
-      <div class="start">
-        <button class="btn btn-primary btn-sm active btn-info" (click)="goodsRejected(i)">退货</button>
-        <button class="btn btn-primary btn-sm active btn-info" (click)="exchangeGoods(i)">换货</button>
-        <button class="btn btn-primary btn-sm active btn-info" (click)="signForGoods(i)">签收</button>
+      <div class="state">
+        <button class="btn btn-primary btn-sm active btn-danger" [disabled]="project.state > 3" (click)="goodsRejected(i)">退货</button>
+        <button class="btn btn-primary btn-sm active btn-success" [disabled]="project.state > 3" (click)="signForGoods(i)">签收</button>
       </div>
+      <hr>
+    </div>
+    <div class="more">
+
+      <button class="btn btn-primary btn-sm active btn-success" (click)="selectMore()" *ngIf="len > 100000">查看更多</button>
     </div>
   </div>
 </div>

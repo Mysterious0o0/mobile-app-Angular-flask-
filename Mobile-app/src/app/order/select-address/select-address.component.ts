@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {OrderService} from "../../services/order.service";
 
 @Component({
   selector: 'app-select-address',
@@ -8,32 +9,36 @@ import {Router} from "@angular/router";
 })
 export class SelectAddressComponent implements OnInit {
 
-  Info: object[] = [
-    {'username': '蒸', 'mobile': 13287275832, 'address': ''},
-    {'username': '蒸', 'mobile': null , 'address': '你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜'},
-    {'username': '', 'mobile': 13287275832, 'address': '你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜'},
-    {'username': '蒸', 'mobile': 13287275832, 'address': '你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜你猜'},
-    {'username': '蒸', 'mobile': 13287275832, 'address': '你猜'},
+  address=[];
 
-  ];
-
-  userInfo: object[];
-
-  constructor(private router: Router) { }
-
-  ngOnInit() {
-    this.userInfo = this.Info
+  constructor(private router: Router, private orderService: OrderService) {
+    this.orderService.selectAddress().then(response=>{
+      if (response['status']==200){
+        this.address = response['address']
+      }else{
+        alert(response['error'])
+      }
+    }).catch(err=>{
+      alert('服务器响应异常，请稍后重试')
+    })
   }
 
+  ngOnInit() {}
+
   useAddress(index:number){
-    // console.log(this.Info[index]);
-    // 通过后台把用户信息推到order页面
-    this.router.navigate(['/order'])
+    this.router.navigate(['/order', this.address[index].addressid])
   }
 
   setAddress(index:number){
-    // console.log(this.Info[index])
-    // 通过后台把更改用户地址信息
+    this.orderService.setAddress(this.address[index].addressid).then(response =>{
+      if (response['status']==200) {
+        alert('默认地址设置成功')
+      }else {
+        alert('默认地址设置失败' + response['error'])
+      }
+    }).catch(err=>{
+      alert('服务器响应异常，请稍后重试')
+    })
   }
 
 }

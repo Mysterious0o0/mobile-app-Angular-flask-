@@ -28,7 +28,7 @@ export class GoodDetailsComponent implements OnInit {
   addCart(){
     this.homeService.addGoods2cart(this.goodsId).then(response => {
       if(response['status'] == 200){
-        alert(response['success'])
+        // alert(response['success'])
       }else {
         alert(response['error'])
       }

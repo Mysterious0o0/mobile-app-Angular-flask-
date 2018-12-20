@@ -28,6 +28,16 @@ create database selldb charset=utf8;
 		isdone varchar(2),
 		createtime datetime);
 
+	create table useraddress(
+		addressid varchar(64) primary key not null,
+		userid varchar(64),
+		name varchar(64),
+		mobile varchar(32),
+		address varchar(128),
+		isfirst varchar(2),
+		createtime datetime);
+
+
 	create table seller(
 		sellerid varchar(64) primary key not null,
 		sellername varchar(64),

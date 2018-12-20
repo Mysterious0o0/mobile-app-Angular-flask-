@@ -1,3 +1,4 @@
+from uuid import uuid1
 from flask import Blueprint, jsonify, request
 from app.models import Menu, Goods, ItemCar
 from app.extensions import db
@@ -12,8 +13,7 @@ def index():
     goods_data = []
     menu_name2id = {}
     menus = Menu.query.all()
-    menu1 = Menu.query.first()
-    goods = Goods.query.filter_by(menuid=menu1.menuid, isshow=1).all()
+    goods = Goods.query.filter_by(isshow=1).all()
     for menu in menus:
         menu_name = menu.db2json().get('menuname')
         menu_id = menu.db2json().get('menuid')
@@ -70,15 +70,21 @@ def addCart():
             cart = ItemCar.query.filter_by(userid=u.userid, goodsid=goods_id).first()
             if cart:
                 cart.count += 1
+                if cart.count > goods.count:
+                    cart.count -= 1
+                    status['status'] = 301
+                    status['error'] = '已到达商品库存上限，请先结算避免无货，如仍需要，待商家补齐后再次购买'
                 cart.sumunit = cart.count * cart.price
             else:
-                itemcar = ItemCar(userid=u.userid,
-                                  goodsname=goods.goodsname,
-                                  count=1,
-                                  price=goods.price,
-                                  unit=goods.unit,
-                                  sumunit=goods.price,
-                                  goodsid=goods_id)
+                itemcar = ItemCar(
+                    sorderid=str(uuid1()),
+                    userid=u.userid,
+                    goodsname=goods.goodsname,
+                    count=1,
+                    price=goods.price,
+                    unit=goods.unit,
+                    sumunit=goods.price,
+                    goodsid=goods_id)
                 db.session.add(itemcar)
             status['success'] = '商品已加入购物车，请尽快结算下单'
     return jsonify(status)

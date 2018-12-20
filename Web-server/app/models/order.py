@@ -1,14 +1,12 @@
 from uuid import uuid1
-from app.extensions import db, login_manager
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from app.extensions import db
 from datetime import datetime
 
 
 class Userorder(db.Model):
     __tablename__ = 'userorder'
     orderid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
-    adderssid = db.Column(db.String(64), nullable=False)
+    addressid = db.Column(db.String(64), nullable=False)
     userid = db.Column(db.String(64), nullable=False)
     sumtotal = db.Column(db.DECIMAL(12, 2), nullable=False)
     createtime = db.Column(db.DateTime, default=str(datetime.now()))
@@ -22,7 +20,7 @@ class Sorder(db.Model):
     __tablename__ = 'sorder'
     sorderid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
     orderid = db.Column(db.String(64), nullable=False)
-    adderssid = db.Column(db.String(64), nullable=False)
+    addressid = db.Column(db.String(64), nullable=False)
     sellerid = db.Column(db.String(64), nullable=False)
     userid = db.Column(db.String(64), nullable=False)
     goodsname = db.Column(db.String(64), nullable=False)
@@ -57,7 +55,7 @@ class Exorder(db.Model):
 class Hisorder(db.Model):
     __tablename__ = 'hisorder'
     orderid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
-    adderssid = db.Column(db.String(64), nullable=False)
+    addressid = db.Column(db.String(64), nullable=False)
     userid = db.Column(db.String(64), nullable=False)
     sumtotal = db.Column(db.DECIMAL(12, 2), nullable=False)
     createtime = db.Column(db.DateTime, default=str(datetime.now()))
@@ -71,7 +69,7 @@ class Hissorder(db.Model):
     __tablename__ = 'hissorder'
     sorderid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
     orderid = db.Column(db.String(64), nullable=False)
-    adderssid = db.Column(db.String(64), nullable=False)
+    addressid = db.Column(db.String(64), nullable=False)
     sellerid = db.Column(db.String(64), nullable=False)
     userid = db.Column(db.String(64), nullable=False)
     goodsname = db.Column(db.String(64), nullable=False)
@@ -87,8 +85,27 @@ class Hissorder(db.Model):
         return data
 
 
+class Address(db.Model):
+    __tablename__ = 'useraddress'
+    addressid = db.Column(db.String(64), primary_key=True, default=str(uuid1()))
+    userid = db.Column(db.String(64), nullable=False)
+    name = db.Column(db.String(64), nullable=False)
+    mobile = db.Column(db.String(32), nullable=False)
+    address = db.Column(db.String(128))
+    isfirst = db.Column(db.String(2), default='0')
+    createtime = db.Column(db.DateTime, default=str(datetime.now()))
+
+    def db2json(self):
+        data = to_json(self)
+        return data
+
+
 def to_json(self):
     data = self.__dict__
     if "_sa_instance_state" in data:
         del data["_sa_instance_state"]
+    if 'price' in data:
+        data['price'] = float(data['price'])
+    if 'sumunit' in data:
+        data['sumunit'] = float(data['sumunit'])
     return data

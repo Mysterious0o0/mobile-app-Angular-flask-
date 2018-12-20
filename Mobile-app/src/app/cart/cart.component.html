@@ -31,6 +31,6 @@
   <hr/>
   <p></p>
   <div class="buy">
-    <a [routerLink]="['/order']" class="btn btn-lg btn-info" role="button">去结算</a>
+    <a [routerLink]="['/order', addressid]" class="btn btn-lg btn-info" role="button" [class.disabled]="sumPrice==0">去结算</a>
   </div>
 </div>
