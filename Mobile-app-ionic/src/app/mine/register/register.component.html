@@ -1,0 +1,89 @@
+<div id="registerForm">
+  <body>
+  <div id="login">
+    <div class="wrapper">
+      <div class="login">
+        <form class="container offset1 loginform" [formGroup]="registerFormModel" (submit)="onSubmit()">
+          <input name="_csrf" type="hidden" id="_csrf" value="<?= Yii::$app->request->csrfToken ?>">
+          <div id="owl-login" [class.password]="secret">
+            <div class="hand"></div>
+            <div class="hand hand-r"></div>
+            <div class="arms">
+              <div class="arm"></div>
+              <div class="arm arm-r"></div>
+            </div>
+          </div>
+          <div class="pad">
+            <input type="hidden" name="_csrf" value="9IAtUxV2CatyxHiK2LxzOsT6wtBE6h8BpzOmk=">
+            <div class="control-group">
+              <div class="controls">
+                <label for="username" class="control-label fa fa-envelope"></label>
+                <input id="username" type="username" name="username" placeholder='用户名' formControlName="username" class="form-control input-medium"
+                       [class.hasError]="registerFormModel.get('username').invalid && registerFormModel.get('username').touched">
+                <div [hidden]="registerFormModel.get('username').valid || registerFormModel.get('username').untouched">
+                  <span class="alert-warning help-block" [class.hidden]="!registerFormModel.hasError('required','username')">请输入用户名</span>
+                  <span class="alert-warning help-block" [class.hidden]="!registerFormModel.hasError('maxlength','username')">用户名最多32位</span>
+                </div>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <label for="email" class="control-label fa fa-asterisk"></label>
+                <input id="email" type="email" name="email" placeholder='邮箱' formControlName="email" class="form-control input-medium"
+                       [class.hasError]="registerFormModel.get('email').invalid && registerFormModel.get('email').touched">
+                <div [hidden]="registerFormModel.get('email').valid || registerFormModel.get('email').untouched">
+                  <!--alert-warning : 黄色框-->
+                  <span class="alert-warning help-block" [class.hidden]="!registerFormModel.hasError('email','email')">请输入正确的邮箱地址，方便激活用户</span>
+                </div>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <label for="mobile" class="control-label fa fa-asterisk"></label>
+                <input id="mobile" type="tel" name="mobile" placeholder='电话号码' formControlName="mobile" class="form-control input-medium"
+                       [class.hasError]="registerFormModel.get('mobile').invalid && registerFormModel.get('mobile').touched">
+                <div [hidden]="registerFormModel.get('mobile').valid || registerFormModel.get('mobile').untouched">
+                  <span class="alert-warning help-block alert-warning" [class.hidden]="!registerFormModel.hasError('mobile','mobile')">请输入正确的手机号，方便激活用户</span>
+                </div>
+              </div>
+            </div>
+            <div formGroupName="passwordGroup">
+              <div class="control-group">
+                <div class="controls">
+                  <label for="password" class="control-label fa fa-asterisk"></label>
+                  <input id="password" type="password" name="password" placeholder='密码' formControlName="password" class="form-control input-medium"
+                         [class.hasError]="registerFormModel.get('passwordGroup').get('password').invalid && registerFormModel.get(['passwordGroup', 'password']).touched"
+                         (focus)="toSecret(0)" (blur)="toSecret(1)">
+                  <div [hidden]="registerFormModel.get('passwordGroup').get('password').valid || registerFormModel.get(['passwordGroup', 'password']).untouched">
+                    <span class="help-block alert-warning" [class.hidden]="!registerFormModel.hasError('required',['passwordGroup', 'password'])">请输入登陆密码</span>
+                    <span class="help-block alert-warning" [class.hidden]="!registerFormModel.hasError('minlength',['passwordGroup', 'password']) &&
+                  !registerFormModel.hasError('maxlength', ['passwordGroup', 'password'])">密码为6~18位</span>
+                  </div>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <label for="confirmp" class="control-label fa fa-envelope"></label>
+                  <input id="confirmp" type="password" name="confirmp" placeholder='确认密码' formControlName="confirmp" class="form-control input-medium"
+                         [class.hasError]="registerFormModel.getError('equal','newPasswordGroup') && registerFormModel.get(['passwordGroup', 'confirmp']).touched"
+                         (focus)="toSecret(0)" (blur)="toSecret(1)">
+                </div>
+              </div>
+              <div class="alert-warning" [hidden]="!registerFormModel.hasError('equal','passwordGroup') ||
+              registerFormModel.get(['passwordGroup', 'confirmp']).untouched">
+                {{registerFormModel.getError('equal','passwordGroup')?.err}}
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <a [routerLink]="['/login']" tabindex="6" class="btn btn-link text-muted">Login</a>
+            <button type="submit" tabindex="4" class="btn btn-primary">Sign Up</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </body>
+</div>
+
+

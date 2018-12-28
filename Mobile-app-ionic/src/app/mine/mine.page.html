@@ -1,0 +1,115 @@
+<!--<ion-header>-->
+  <!--<ion-toolbar>-->
+    <!--<ion-title>mine</ion-title>-->
+  <!--</ion-toolbar>-->
+<!--</ion-header>-->
+
+<ion-content>
+  <div id="mine">
+    <div class="leftNav">
+      <aside>
+        <menu>
+          <ul>
+            <li *ngFor="let nav of leftNavs; let i=index">
+              <div *ngIf="nav == array">
+                <span class="blueSlide"></span>
+              </div>
+              <a (click)="onSearchNav(i)">{{nav}}</a>
+            </li>
+          </ul>
+        </menu>
+      </aside>
+    </div>
+
+    <div class="rightInfo">
+      <article class="info">
+        <div [ngSwitch]="num">
+          <div *ngSwitchCase="0">
+            <div class="userdata">
+              <p>用户信息</p>
+              <form class="form-inline" [formGroup]="infoFormModel" (submit)="onChangeInfo()">
+                <div class="input-group data-group">
+                  <div class="input-group-addon">用户名:</div>
+                  <span class="form-control" >{{info.username}}</span>
+                </div>
+                <div class="input-group">
+                  <div class="input-group-addon">真实名:</div>
+                  <input type="text" class="form-control" formControlName="realname" value="{{info.realname}}" [class.hasError]=
+                          "infoFormModel.get('realname').invalid && infoFormModel.get('realname').touched" (focus)="onSetValue()">
+                </div>
+                <div class="input-group">
+                  <div class="input-group-addon">&nbsp;Email:</div>
+                  <input type="text" class="form-control" formControlName="email" value="{{info.email}}" [class.hasError]=
+                          "infoFormModel.get('email').invalid && infoFormModel.get('email').touched" (focus)="onSetValue()">
+                </div>
+                <div class="input-group">
+                  <div class="input-group-addon">手机号:</div>
+                  <input type="text" class="form-control" formControlName="mobile" value="{{info.mobile}}" [class.hasError]=
+                          "infoFormModel.get('mobile').invalid && infoFormModel.get('mobile').touched" (focus)="onSetValue()">
+                </div>
+                <p></p>
+                <div class="form-actions">
+                  <button type="submit" tabindex="4" class="btn ">提交</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+          <div *ngSwitchCase="1">
+            <div class="form">
+              <form class="form-inline" [formGroup]="passwordFormModel" (submit)="onChangePW()">
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-addon">用户旧密码:</div>
+                    <input type="text" class="form-control" id="oldPassword" placeholder="请输入旧密码" formControlName="oldPassword"
+                           [class.hasError]="passwordFormModel.get('oldPassword').invalid && passwordFormModel.get('oldPassword').touched">
+                  </div>
+                  <div [hidden]="passwordFormModel.get('oldPassword').valid || passwordFormModel.get('oldPassword').untouched">
+                    <span class="help-block alert-warning" [class.hidden]="!passwordFormModel.hasError('required','oldPassword')">请输入用户的旧密码</span>
+                    <span class="help-block alert-warning" [class.hidden]="!passwordFormModel.hasError('minlength','oldPassword') &&
+                  !passwordFormModel.hasError('maxlength', 'oldPassword')">密码为6~18位</span>
+                  </div>
+                </div>
+                <div formGroupName="newPasswordGroup">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-addon">用户新密码:</div>
+                      <input id="password" type="password" name="password" placeholder='请输入新密码' formControlName="password"
+                             class="form-control input-medium" [class.hasError]="passwordFormModel.get('newPasswordGroup').get('password').invalid &&
+                           passwordFormModel.get(['newPasswordGroup', 'password']).touched">
+                    </div>
+                    <div [hidden]="passwordFormModel.get('newPasswordGroup').get('password').valid || passwordFormModel.get(['newPasswordGroup', 'password']).untouched">
+                      <span class="help-block alert-warning" [class.hidden]="!passwordFormModel.hasError('required',['newPasswordGroup', 'password'])">请输入用户的新密码</span>
+                      <span class="help-block alert-warning" [class.hidden]="!passwordFormModel.hasError('minlength',['newPasswordGroup', 'password']) &&
+                !passwordFormModel.hasError('maxlength', ['newPasswordGroup', 'password'])">密码为6~18位</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-addon">确认新密码:</div>
+                      <input id="confirmp" type="password" name="confirmp" placeholder='请确认密码' formControlName="confirmp"
+                             class="form-control input-medium" [class.hasError]="passwordFormModel.getError('equal','newPasswordGroup')
+                           && passwordFormModel.get(['newPasswordGroup', 'confirmp']).touched">
+                    </div>
+                    <div class="alert-warning" [hidden]="!passwordFormModel.hasError('equal','newPasswordGroup') ||
+                  passwordFormModel.get(['newPasswordGroup', 'confirmp']).untouched">
+                      {{passwordFormModel.getError('equal','newPasswordGroup')?.err}}
+                    </div>
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" tabindex="4" class="btn ">提交</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div *ngSwitchCase="2">
+            <div class="exit">
+              <button type="submit" tabindex="6" class="btn btn-lg" (click)="onExit()">Exit</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</ion-content>

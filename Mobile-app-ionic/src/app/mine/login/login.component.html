@@ -1,0 +1,54 @@
+<div id="loginForm">
+  <body>
+  <div id="login">
+    <div class="wrapper">
+      <div class="login">
+        <form class="container offset1 loginform" [formGroup]="loginFormModel" (submit)="onSubmit()">
+          <div id="owl-login" [class.password]="secret">
+            <div class="hand"></div>
+            <div class="hand hand-r"></div>
+            <div class="arms">
+              <div class="arm"></div>
+              <div class="arm arm-r"></div>
+            </div>
+          </div>
+          <div class="pad">
+            <input type="hidden" name="_csrf" value="9IAtUxV2CatyxHiK2LxzOsT6wtBE6h8BpzOmk=">
+            <div class="control-group">
+              <div class="controls">
+                <label for="username" class="control-label fa fa-envelope"></label>
+                <input id="username" type="username" name="username" placeholder='UserName' formControlName="username"
+                       class="form-control input-medium" [class.hasError]="loginFormModel.get('username').invalid &&
+                     loginFormModel.get('username').touched">
+                <div [hidden]="loginFormModel.get('username').valid || loginFormModel.get('username').untouched">
+                  <span class="help-block alert-warning" [class.hidden]="!loginFormModel.hasError('required','username')">请输入登陆账号</span>
+                  <span class="help-block alert-warning" [class.hidden]="!loginFormModel.hasError('maxlength','username')">用户名最多32位</span>
+                </div>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <label for="password" class="control-label fa fa-asterisk"></label>
+                <input id="password" type="password" name="password" placeholder='Password' formControlName="password"
+                       class="form-control input-medium" [class.hasError]="loginFormModel.get('password').invalid &&
+                     loginFormModel.get('password').touched" (focus)="toSecret(0)" (blur)="toSecret(1)">
+                <div [hidden]="loginFormModel.get('password').valid || loginFormModel.get('password').untouched">
+                  <span class="help-block alert-warning" [class.hidden]="!loginFormModel.hasError('required','password')">请输入登陆密码</span>
+                  <span class="help-block alert-warning" [class.hidden]="!loginFormModel.hasError('minlength','password') &&
+                !loginFormModel.hasError('maxlength','password')">密码为6~18位</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <a href="#" tabindex="5" class="btn pull-left btn-link text-muted" >Forgot password?</a>
+            <a [routerLink]="['/register']" tabindex="6" class="btn btn-link text-muted">Sign Up</a>
+            <button type="submit" tabindex="4" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </body>
+
+</div>

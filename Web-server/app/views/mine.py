@@ -66,13 +66,7 @@ def register():
 def showinfo():
     status, u = chick_user(request)
     if status['status'] == 200:
-        userinfo = {
-            'username': u.username,
-            'Name': u.realname,
-            'email': u.email,
-            'mobile': u.mobile,
-            'integral': u.score}
-        status['userInfo'] = userinfo
+        status['userInfo'] = u.db2json()
     return jsonify(status)
 
 
@@ -84,8 +78,8 @@ def changeinfo():
     if status['status'] == 200:
         form = InfoForm()
         if form.validate_on_submit():
-            if form.Name.data != u.realname:
-                u.realname = form.Name.data
+            if form.realname.data != u.realname:
+                u.realname = form.realname.data
                 message += '用户真实姓名 '
             if form.email.data != u.email and \
                     not User.query.filter_by(email=form.email.data).first():
@@ -102,6 +96,8 @@ def changeinfo():
                 # status['status'] = 400
                 status['error'] = '手机号已被绑定，请选择其他手机号'
             status['success'] = message
+            user = User.query.filter_by(userid=u.userid).first()
+            status['userInfo'] = user.db2json()
         else:
             status['status'] = 500
             status['error'] = "输入校验失败，请稍后重试"
@@ -125,6 +121,12 @@ def changePW():
     return jsonify(status)
 
 
+@mine.route('/click', methods=['GET'])
+def click():
+    status, _ = chick_user(request)
+    return jsonify(status)
+
+
 def chick_user(request_data):
     status = {'status': 200}
     u = None
@@ -143,3 +145,5 @@ def chick_user(request_data):
         status['status'] = 403
         status['error'] = '身份验证异常，请重新登陆'
     return status, u
+
+

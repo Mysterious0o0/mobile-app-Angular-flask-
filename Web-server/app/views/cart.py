@@ -13,7 +13,6 @@ def index():
     if u is not None:
         carts = ItemCar.query.filter_by(userid=u.userid).all()
         address = Address.query.filter_by(userid=u.userid, isfirst='1').first()
-        print(u.userid)
         if address is None:
             address = Address.query.filter_by(userid=u.userid).first()
         if address is None:
@@ -39,7 +38,7 @@ def addGoods():
         cart.count += 1
         if cart.count > goods.count:
             cart.count -= 1
-            status['status'] = 301
+            status['status'] = 401
             status['error'] = '已到达商品库存上限，请先结算避免无货，如仍需要，待商家补齐后再次购买'
         else:
             cart.sumunit += cart.price

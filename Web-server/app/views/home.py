@@ -13,7 +13,17 @@ def index():
     goods_data = []
     menu_name2id = {}
     menus = Menu.query.all()
-    goods = Goods.query.filter_by(isshow=1).all()
+    req = request.headers.get('Good-Index')
+    index = int(req.split(" ")[1])
+    way = req.split(" ")[2]
+    index_end = index * 10
+    if way == 'Refresh':
+        goods = Goods.query.filter_by(isshow=1, isfirstpageshow=1).all()[: index_end]
+    elif way == 'Infinite':
+        index_start = (index - 1) * 10
+        goods = Goods.query.filter_by(isshow=1, isfirstpageshow=1).all()[index_start: index_end]
+    else:
+        goods = Goods.query.filter_by(isshow=1, isfirstpageshow=1).all()[: index_end]
     for menu in menus:
         menu_name = menu.db2json().get('menuname')
         menu_id = menu.db2json().get('menuid')
@@ -29,9 +39,18 @@ def menuGoods():
     goods_data = []
     req = request.headers.get('Good-Type')
     menu_id = req.split(" ")[1]
-    goods = Goods.query.filter_by(menuid=menu_id, isshow=1).all()
-    for goods in goods:
-        goods_data.append(goods.db2json())
+    menu_index = int(req.split(" ")[2])
+    way = req.split(" ")[3]
+    index_end = menu_index * 10
+    if way == 'Refresh':
+        goods = Goods.query.filter_by(menuid=menu_id, isshow=1).all()[: index_end]
+    elif way == 'Infinite':
+        index_start = (menu_index - 1) * 10
+        goods = Goods.query.filter_by(menuid=menu_id, isshow=1).all()[index_start: index_end]
+    else:
+        goods = Goods.query.filter_by(menuid=menu_id, isshow=1).all()[: index_end]
+    for pro in goods:
+        goods_data.append(pro.db2json())
     return jsonify(goods_data)
 
 
@@ -64,16 +83,12 @@ def addCart():
     else:
         goods = Goods.query.filter_by(goodsid=goods_id, isshow=1).first()
         if goods.count <=0:
-            status['status'] = 403
+            status['status'] = 401
             status['error'] = '商品销售火爆，已抢购一空，待商家补货重新上架'
         else:
             cart = ItemCar.query.filter_by(userid=u.userid, goodsid=goods_id).first()
             if cart:
                 cart.count += 1
-                if cart.count > goods.count:
-                    cart.count -= 1
-                    status['status'] = 301
-                    status['error'] = '已到达商品库存上限，请先结算避免无货，如仍需要，待商家补齐后再次购买'
                 cart.sumunit = cart.count * cart.price
             else:
                 itemcar = ItemCar(

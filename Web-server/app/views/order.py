@@ -93,8 +93,9 @@ def addAddress():
                 address=form.address.data,
             )
             db.session.add(address)
+            status['addressid'] = address.addressid
         else:
-            status['status'] = 403
+            status['status'] = 401
             status['error'] = form.errors()
     return jsonify(status)
 
@@ -130,8 +131,16 @@ def setaddress():
 def getsorder():
     sorder = []
     status, u = chick_user(request)
+    num = int(request.headers.get('Authorization').split(" ")[2])
     if u is not None:
-        sorder_all = Sorder.query.filter_by(userid=u.userid).all()
+        if num == 0:
+            sorder_all = Sorder.query.filter_by(userid=u.userid).filter(
+                Sorder.state.in_(['1', '2', '5'])).all()
+        else:
+            index_start = (num - 1) * 10
+            index_end = num * 10
+            sorder_all = Sorder.query.filter_by(userid=u.userid).filter(
+                Sorder.state.notin_(['1', '2', '5'])).all()[index_start: index_end]
         for sorder_one in sorder_all:
             sorder.append(sorder_one.db2json())
         status['sorder'] = sorder
@@ -142,7 +151,8 @@ def getsorder():
 @order.route('/goodsRejected', methods=['GET'])
 def rejected():
     # 退货
-    status, sorder = setStatus(request)
+    sorder_load = []
+    status, u, sorder = setStatus(request)
     if sorder is not None:
         sorder.state = '5'
         exorder = Exorder(
@@ -153,15 +163,26 @@ def rejected():
             exdesc='申请退货'
         )
         db.session.add(exorder)
+        sorder_all = Sorder.query.filter_by(userid=u.userid).filter(
+                Sorder.state.in_(['1', '2', '5'])).all()
+        for sorder_one in sorder_all:
+            sorder_load.append(sorder_one.db2json())
+        status['sorder'] = sorder_load
     return jsonify(status)
 
 
 @order.route('/signForGoods', methods=['GET'])
 def sign():
     # 签收
-    status, sorder = setStatus(request)
+    sorder_load = []
+    status, u, sorder = setStatus(request)
     if sorder is not None:
         sorder.state = '10'
+        sorder_all = Sorder.query.filter_by(userid=u.userid).filter(
+                Sorder.state.in_(['1', '2', '5'])).all()
+        for sorder_one in sorder_all:
+            sorder_load.append(sorder_one.db2json())
+        status['sorder'] = sorder_load
     return jsonify(status)
 
 
@@ -172,7 +193,7 @@ def setStatus(request_data):
         req = request.headers.get('Status-Type')
         sorderid = req.split(" ")[1]
         sorder = Sorder.query.filter_by(sorderid=sorderid).first()
-    return status, sorder
+    return status, u, sorder
 
 
 @order.route('/gethisorder', methods=['GET'])

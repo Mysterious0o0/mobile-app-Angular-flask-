@@ -50,6 +50,7 @@ class Goods(db.Model):
     bpic = db.Column(db.String(64), nullable=False)
     unit = db.Column(db.String(32), nullable=False)
     online = db.Column(db.String(2), default='1')
+    isfirstpageshow = db.Column(db.String(2), default='1')
     isshow = db.Column(db.String(2), default='1')
     selpoint = db.Column(db.Text(128))
     delflag = db.Column(db.String(2), default='0')

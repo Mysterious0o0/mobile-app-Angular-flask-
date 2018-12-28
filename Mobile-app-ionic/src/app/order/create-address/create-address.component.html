@@ -1,0 +1,44 @@
+<div id="address">
+  <div class="create">
+    <form class="form-inline" [formGroup]="addressFormModel" (submit)="onSubmit()">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">收货人姓名:</div>
+          <input type="text" class="form-control" id="consigneeName" placeholder="请输入收货人姓名" formControlName="username"
+                 [class.hasError]="addressFormModel.get('username').invalid && addressFormModel.get('username').touched">
+        </div>
+        <div [hidden]="addressFormModel.get('username').valid || addressFormModel.get('username').untouched">
+          <span class="help-block alert-warning" [class.hidden]="!addressFormModel.hasError('required','username')">请输入收货人姓名，便于快递员核对身份信息</span>
+          <span class="help-block alert-warning" [class.hidden]="!addressFormModel.hasError('maxlength','username')">姓名最多32位</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">收货人手机号:</div>
+          <input type="text" class="form-control" id="consigneeIphone" placeholder="请输入收货人手机号" formControlName="mobile"
+                 [class.hasError]="addressFormModel.get('mobile').invalid && addressFormModel.get('mobile').touched">
+        </div>
+        <div [hidden]="addressFormModel.get('mobile').valid || addressFormModel.get('mobile').untouched">
+          <span class="alert-warning help-block alert-warning" [class.hidden]="!addressFormModel.hasError('mobile','mobile')">请输入正确的手机号，便于快递员与收货人联系</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">收货人地址:</div>
+          <textarea id="consigneeAddress"  class="form-control" rows="" cols="" placeholder="请输入收货人地址"
+                    formControlName="address" [class.hasError]="addressFormModel.get('address').invalid &&
+                    addressFormModel.get('address').touched"></textarea>
+        </div>
+        <div [hidden]="addressFormModel.get('address').valid || addressFormModel.get('address').untouched">
+          <span class="help-block alert-warning" [class.hidden]="!addressFormModel.hasError('required','address')">请输入收货人地址，便于快递员快速到达</span>
+        </div>
+
+      </div>
+      <div class="form-actions">
+        <a tabindex="6" class="btn btn-link text-muted" (click)="goOrder()">返回订单</a>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <button type="submit" tabindex="4" class="btn btn-default">提交</button>
+      </div>
+    </form>
+  </div>
+</div>

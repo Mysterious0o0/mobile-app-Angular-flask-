@@ -33,7 +33,7 @@ class LoginForm(FlaskForm):
 
 # 修改用户信息
 class InfoForm(FlaskForm):
-    Name = StringField('Name', validators=[DataRequired(), Length(1, 18)])
+    realname = StringField('realname', validators=[DataRequired(), Length(1, 18)])
     email = StringField('email', validators=[Email()])
     mobile = StringField('mobile', validators=[DataRequired()])
 

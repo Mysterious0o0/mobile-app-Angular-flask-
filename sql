@@ -62,6 +62,7 @@ create database selldb charset=utf8;
 		bpic varchar(64),
 		unit varchar(32),
 		online varchar(2),
+		isfirstpageshow varchar(2),
 		isshow varchar(2),
 		selpoint varchar(128),
 		delflag varchar(2),

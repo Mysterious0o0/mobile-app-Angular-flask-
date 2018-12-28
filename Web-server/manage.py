@@ -3,9 +3,9 @@ from app import create_app
 from flask_script import Manager
 from flask_migrate import MigrateCommand, Migrate
 from app.extensions import db
-from tornado.wsgi import WSGIContainer
-from tornado.httpserver import HTTPServer
-from tornado.ioloop import IOLoop
+# from tornado.wsgi import WSGIContainer
+# from tornado.httpserver import HTTPServer
+# from tornado.ioloop import IOLoop
 from flask_cors import CORS
 
 app = create_app(os.environ.get('FLASK_CONFIG') or 'default')

@@ -1,0 +1,34 @@
+<div id="goods">
+  <div id="img">
+    <img src="http://placehold.it/350x200">
+  </div>
+  <div>
+    <div id="detail">
+      <div>
+        <span>&nbsp;商品名称：</span>
+        <span>&nbsp;{{goods.goodsname}}</span>
+      </div>
+      <hr/>
+      <div>
+        <span>&nbsp;价格：</span>
+        <span>￥{{goods.price | number: '1.2-2'}}</span>
+        <span>{{goods.unit}}</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span *ngIf="goods.count > 0; else elseBlock">有货</span>
+        <ng-template #elseBlock>无货</ng-template>
+      </div>
+      <hr/>
+      <div>
+        <span>&nbsp;商品设计特点：</span>
+        <div>
+          <span class="feature">&nbsp;{{goods.selpoint}}</span>
+        </div>
+      </div>
+      <hr/>
+      <p></p>
+    </div>
+    <div id="shop">
+      <a class="btn btn-lg btn-info" role="button" (click)="addCart()">加入购物车</a>
+    </div>
+  </div>
+</div>

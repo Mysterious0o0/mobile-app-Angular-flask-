@@ -1,0 +1,29 @@
+<div id="select">
+  <div *ngFor="let info of address; let i = index">
+    <div class="left">
+      <div class="input-group">
+        <div class="input-group-addon">收货人姓名:</div>
+        <span class="form-control" >{{info.name}}</span>
+      </div>
+      <div class="input-group">
+        <div class="input-group-addon">收货人电话:</div>
+        <span class="form-control" >{{info.mobile}}</span>
+      </div>
+      <div class="input-group">
+        <div class="input-group-addon">收货人地址:</div>
+        <textarea class="form-control" rows="" cols="" readonly="readonly">{{info.address}}</textarea>
+      </div>
+      <p></p>
+    </div>
+    <div class='bottom'>
+      <div>
+        <button class="btn btn-xs btn-default active" (click)="useAddress(i)">&nbsp;使用此地址&nbsp;</button>
+        <button class="btn btn-xs btn-default active" (click)="setAddress(i)">设为默认地址</button>
+      </div>
+      <p></p>
+    </div>
+  </div>
+</div>
+
+
+

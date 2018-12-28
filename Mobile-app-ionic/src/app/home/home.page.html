@@ -1,0 +1,66 @@
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="正在加载"
+            refreshingSpinner="circles"
+            refreshingText="加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div id="home">
+    <div class="selected">
+      <div class="input-group col-md-12">
+        <span class="input-group-addon col-md-3" id="basic-addon1">搜索商品</span>
+        <form #goodsType="ngForm" (ngSubmit)="onSearchType(goodsType.value)">
+          <input type="text" class="form-control search col-md-6" placeholder="商品名称"
+                 #goodsType="ngModel" ngModel name="goodsType" [value]="searchValue">
+          <button type="submit" tabindex="4" class="btn btn-primary search col-md-3">搜索</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="left">
+      <aside>
+        <menu>
+          <ul class="home">
+            <li *ngFor="let array of arrays; let i=index">
+              <div *ngIf="seller == array">
+                <span class="blueSlide"></span>
+              </div>
+              <a (click)="onSearchSeller(i)">{{array}}</a>
+            </li>
+          </ul>
+        </menu>
+      </aside>
+    </div>
+
+    <div class="right">
+      <section>
+        <menu>
+          <ul>
+            <li *ngFor="let product of products; let i = index" >
+              <a (click)="goGoods(i)" >
+                <img src="http://placehold.it/100x100" />
+                <article class="goods">
+                  <h6>{{product.goodsname}}</h6>
+                  <p class="price">
+                    <span>{{product.price | number: '1.2-2'}} {{product.unit}}</span>
+                  </p>
+                </article>
+              </a>
+            </li>
+          </ul>
+          <ion-infinite-scroll (ionInfinite)="doInfinite($event)" threshold="10%" *ngIf="status == false; else p">
+            <ion-infinite-scroll-content loadingSpinner="bubbles"
+                                         loadingText="正在加载请稍后">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+          <ng-template #p>
+            <p style="font-style: italic; font-size: 1rem; color: #5e5e5e; width: 100%; text-align: center">我也是有底线的</p>
+          </ng-template>
+        </menu>
+      </section>
+    </div>
+  </div>
+
+</ion-content>

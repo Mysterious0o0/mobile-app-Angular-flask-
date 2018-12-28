@@ -1,0 +1,45 @@
+<!--<ion-header>-->
+  <!--<ion-toolbar>-->
+    <!--<ion-title>cart</ion-title>-->
+  <!--</ion-toolbar>-->
+<!--</ion-header>-->
+
+<ion-content>
+  <div id="cart">
+    <div class="table">
+      <table border="1">
+        <tr>
+          <td class="td1">物品名</td>
+          <td class="td1">单价</td>
+          <td class="td2">-</td>
+          <td class="td1">数量</td>
+          <td class="td2">+</td>
+          <td class="td1">单项总价</td>
+        </tr>
+        <tr *ngFor="let product of products let i = index">
+          <td>{{product.goodsname}}</td>
+          <td>￥{{product.price}}{{product.unit}}</td>
+          <td>
+            <button class="btn" (click)="subGoods(i)">-</button>
+          </td>
+          <td>{{product.count}}</td>
+          <td>
+            <button class="btn" (click)="addGoods(i)">+</button>
+          </td>
+          <td>￥{{product.sumunit}}</td>
+        </tr>
+      </table>
+    </div>
+    <p></p>
+    <div class="price">
+      <span>总价格：￥{{sumPrice}}</span>
+    </div>
+    <p></p>
+    <hr/>
+    <p></p>
+    <div class="buy">
+      <a class="btn btn-lg btn-default" role="button" [class.disabled]="sumPrice==0" (click)="goOrder()">去结算</a>
+    </div>
+  </div>
+
+</ion-content>
