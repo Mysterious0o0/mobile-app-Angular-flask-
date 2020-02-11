@@ -44,7 +44,7 @@ decorator==4.1.2
 defusedxml==0.5.0
 diff-match-patch==20121119
 distributed==1.19.1
-Django==2.0.6
+Django==2.2.10
 django-celery==3.2.2
 django-cors-headers==2.1.0
 django-crispy-forms==1.6.1
